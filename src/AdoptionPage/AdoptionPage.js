@@ -199,6 +199,7 @@ export default class AdoptionPage extends React.Component {
     people: [],
     name: '',
     adoptionMessage: false,
+    waiting: false,
     inLine: false,
     atFront: false,
   };
@@ -232,7 +233,7 @@ export default class AdoptionPage extends React.Component {
     ApiService.queuePerson(this.state.name).then(() => {
       ApiService.getAllPeople()
         .then((people) => {
-          this.setState({ people, inLine: true });
+          this.setState({ people, inLine: true, waiting: true });
         })
         .catch((error) => this.setState({ error }));
     });
@@ -299,7 +300,7 @@ export default class AdoptionPage extends React.Component {
             this.setState({ people });
             if (people.length === 5) {
               clearInterval(this.interval);
-              this.setState({ atFront: true });
+              this.setState({ atFront: true, waiting: false });
             }
           })
           .catch((error) => this.setState({ error }));
@@ -332,13 +333,25 @@ export default class AdoptionPage extends React.Component {
             handleAdopt={this.handleAdopt}
           />
         </div>
-        {this.state.adoptionMessage !== false && (
-          <h2 style={{ color: 'green' }}>
-            Congratulations, your adoption was accepted!
-          </h2>
-        )}
+        <div className="message">
+          {this.state.atFront !== false &&
+            this.state.adoptionMessage === false && (
+              <h2 style={{ color: 'green' }}>
+                Your turn! Please choose a pet.
+              </h2>
+            )}
+          {this.state.adoptionMessage !== false && (
+            <h2 style={{ color: 'green' }}>
+              Congratulations, your adoption was accepted!
+            </h2>
+          )}
+          {this.state.waiting !== false && (
+            <h2 style={{ color: 'orange' }}>Please wait...</h2>
+          )}
+        </div>
+
         {this.state.inLine === false && (
-          <form onSubmit={this.handleSubmit}>
+          <form className="adopt-form" onSubmit={this.handleSubmit}>
             <h4>Join the line to adopt!</h4>
             <label htmlFor="name">Your name:</label>
             <input

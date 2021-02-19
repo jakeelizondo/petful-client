@@ -20,6 +20,7 @@
 
   .pet img {
     max-width: 50%;
+    border-radius: 5px;
   }
 
   .pet-details {
@@ -56,6 +57,7 @@
 
   .pet img {
     max-width: 50%;
+    border-radius: 5px;
   }
 
   .pet-details {

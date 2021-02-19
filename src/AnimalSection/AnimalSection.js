@@ -25,7 +25,11 @@ export default class AnimalSection extends React.Component {
           <p>Description: {this.props.pet.description}</p>
           <p>Story: {this.props.pet.story}</p>
         </div>
-        <button>Adopt</button>
+        {this.props.atFront === true && (
+          <button onClick={() => this.props.handleAdopt(this.props.type)}>
+            Adopt
+          </button>
+        )}
       </div>
     );
   }

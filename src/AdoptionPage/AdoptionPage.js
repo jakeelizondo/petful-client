@@ -271,17 +271,21 @@ export default class AdoptionPage extends React.Component {
 
   moveQueue = () => {
     this.interval = setInterval(() => {
-      ApiService.dequeuePerson().then(() => {
-        ApiService.getAllPeople()
-          .then((people) => {
-            this.setState({ people });
-            if (people[0] === this.state.name) {
-              clearInterval(this.interval);
-              this.fillQueue();
-            }
-          })
-          .catch((error) => this.setState({ error }));
-      });
+      ApiService.dequeuePerson()
+        .then(() => {
+          this.dqPair();
+        })
+        .then(() => {
+          ApiService.getAllPeople()
+            .then((people) => {
+              this.setState({ people });
+              if (people[0] === this.state.name) {
+                clearInterval(this.interval);
+                this.fillQueue();
+              }
+            })
+            .catch((error) => this.setState({ error }));
+        });
     }, 5000);
   };
 

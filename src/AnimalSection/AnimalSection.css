@@ -1,0 +1,17 @@
+.pet {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pet img {
+  max-width: 50%;
+}
+
+.pet-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

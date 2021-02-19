@@ -1,9 +1,15 @@
-import React from 'react'
+import React from 'react';
+import { Route } from 'react-router-dom';
+import Homepage from '../Homepage/Homepage';
+import AdoptionPage from '../AdoptionPage/AdoptionPage';
 
 function Root() {
-  return <div>
-    <h1>Petful</h1>
-  </div>
+  return (
+    <div>
+      <Route exact path={'/'} component={Homepage} />
+      <Route path={'/adoption'} component={AdoptionPage} />
+    </div>
+  );
 }
 
-export default Root
+export default Root;
